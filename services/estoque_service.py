@@ -53,7 +53,7 @@ class EstoqueService:
         
 
     def listar_produtos_inverso(self):
-        pass
+        return self.produtos.listar_inverso
 
     def listar_produtos_ordenados_por_id(self):
         pass

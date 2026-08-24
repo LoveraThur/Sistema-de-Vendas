@@ -29,7 +29,7 @@ class ClienteService:
             self.vendas.enqueue(venda)
             
     def cadastrar_cliente(self, nome):
-        pass
+        print('aqui')
     
     def listar_clientes(self):
         pass

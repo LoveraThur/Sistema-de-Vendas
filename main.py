@@ -1,4 +1,6 @@
 from services.estoque_service import EstoqueService
+from services.venda_service import VendaService
+from services.cliente_service import ClienteService
 
 def ler_inteiro(mensagem):
     valor = input(mensagem)
@@ -47,10 +49,15 @@ def mostrar_menu():
     print("0 - Sair")
 
 
-def executar_opcao(opcao, service):
+def executar_opcao(opcao, service, cliente, venda):
     if opcao == 1:
-        pass
-
+        while True:
+            try:
+                nome = str(input('Nome do Cliente: '))
+                cliente.cadastrar_cliente(nome)
+            except:
+                print('Nome inválido!')
+            
     elif opcao == 2:
         pass
 
@@ -116,6 +123,8 @@ def executar_opcao(opcao, service):
 
 def main():
     service = EstoqueService()
+    cliente = ClienteService()
+    venda = VendaService()
 
     while True:
         mostrar_menu()
@@ -127,7 +136,7 @@ def main():
                 print("Sistema encerrado.")
                 break
 
-            executar_opcao(opcao, service)
+            executar_opcao(opcao, service, cliente, venda)
 
         except ValueError as erro:
             print(f"Erro: {erro}")

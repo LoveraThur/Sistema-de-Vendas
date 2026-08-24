@@ -33,6 +33,7 @@ class VendaService:
         pass
     
     def primeira_venda(self):
+        #listar a primeira venda do processo
         pass
     
     def valor_total_estoque(self):
