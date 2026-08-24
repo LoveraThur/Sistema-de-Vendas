@@ -1,8 +1,6 @@
 import os
 
-from estruturas.fila import Fila
 from estruturas.lde import LDE
-from estruturas.lse import LSE
 from services.persistencia_service import PersistenciaService
 
 class EstoqueService:
@@ -10,9 +8,8 @@ class EstoqueService:
         pasta_raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         pasta_data = os.path.join(pasta_raiz, "data")
 
-        self.clientes = LSE()
         self.produtos = LDE()
-        self.vendas = Fila()
+        
         self.persistencia = PersistenciaService(pasta_data)
 
         self.carregar_dados()
@@ -47,23 +44,13 @@ class EstoqueService:
 
         return maior_codigo + 1
 
-    def cadastrar_cliente(self, nome):
-        pass
-
-    def listar_clientes(self):
-        pass
-
-    def buscar_cliente(self, codigo):
-        pass
-
-    def remover_cliente(self, codigo):
-        pass
-
+    
     def cadastrar_produto(self, nome, preco, quantidade):
         pass
 
     def listar_produtos(self):
-        pass
+        return self.produtos.listar()
+        
 
     def listar_produtos_inverso(self):
         pass
@@ -83,33 +70,7 @@ class EstoqueService:
     def remover_produto(self, codigo):
         pass
 
-    def realizar_venda_exemplo(self, codigo_cliente, codigo_produto, quantidade):
-        pass
-
-    def listar_vendas(self):
-        pass
-
-    def primeira_venda(self):
-        pass
-
-    def valor_total_estoque(self):
-        pass
-
-    def valor_total_vendas(self):
-        pass
-
-    def clientes_e_valores_totais_gastos(self):
-        pass
-
-    def cliente_que_mais_gastou(self):
-        pass
-
-    def produto_mais_vendido(self):
-        pass
-
-    def desfazer_ultima_operacao(self):
-        pass
-
+    
     def salvar_clientes(self):
         self.persistencia.salvar_clientes(self.clientes.listar())
 
