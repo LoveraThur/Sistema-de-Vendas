@@ -63,8 +63,11 @@ class EstoqueService:
     def buscar_produto_binario(self, codigo):
         pass
 
-    def atualizar_estoque(self, codigo, nova_quantidade):
-        pass
+    def atualizar_estoque(self, quantidade): 
+        nova_quantidade = self.quantidade + int(quantidade) 
+        if nova_quantidade < 0: 
+            raise ValueError("O estoque nao pode ficar negativo.") 
+        self.quantidade = nova_quantidade
 
     def remover_produto(self, codigo):
         pass
