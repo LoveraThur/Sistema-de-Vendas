@@ -1,5 +1,6 @@
 import os
 
+from estruturas.fila import Fila
 from estruturas.lse import LSE
 from services.persistencia_service import PersistenciaService
 
@@ -11,7 +12,8 @@ class ClienteService:
         pasta_data = os.path.join(pasta_raiz, "data")
     
         self.clientes = LSE()
-
+        self.produtos = LSE()
+        self.vendas = Fila()
         self.persistencia = PersistenciaService(pasta_data)
     
         self.carregar_dados()
@@ -29,13 +31,14 @@ class ClienteService:
             self.vendas.enqueue(venda)
             
     def cadastrar_cliente(self, nome):
-        pass
+        self.clientes.inserir_fim(nome)
     
     def listar_clientes(self):
-        pass
+        return self.clientes.listar()
     
-    def buscar_cliente(self, codigo):
-        pass
-    
+    def buscar_cliente(self, codigo): 
+        return self.clientes.buscar(codigo)
+     
     def remover_cliente(self, codigo):
-        pass
+        return self.clientes.remover(codigo) 
+        
