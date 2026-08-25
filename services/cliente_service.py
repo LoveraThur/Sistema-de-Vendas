@@ -32,6 +32,7 @@ class ClienteService:
             
     def cadastrar_cliente(self, nome):
         self.clientes.inserir_fim(nome)
+        print('aqui')
     
     def listar_clientes(self):
         return self.clientes.listar()
