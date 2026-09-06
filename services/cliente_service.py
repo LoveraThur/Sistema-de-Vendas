@@ -26,11 +26,10 @@ class ClienteService:
     def salvar_clientes(self):
             self.persistencia.salvar_clientes(self.clientes.listar())
             
-    def cadastrar_cliente(self, nome):
-        self.clientes.inserir_fim(nome)
-        self.cliente
-        #aperfeiçoar: importar classe cliente, criar intancia de cliente, adicionar no inserir fim
-        # salvar arquivo do cliente e retornar.
+    def cadastrar_cliente(self, codigo, nome):
+        cliente = Cliente(codigo, nome)
+        self.clientes.inserir_fim(cliente)
+        self.salvar_clientes()
     
     def listar_clientes(self):
         return self.clientes.listar()
@@ -39,6 +38,8 @@ class ClienteService:
         return self.clientes.buscar(codigo)
      
     def remover_cliente(self, codigo):
-        return self.clientes.remover(codigo) 
-    #salvar quando o valor for removido.
+        resultado = self.clientes.remover(codigo) 
+        if resultado:
+            self.salvar_clientes
+        return resultado
         
