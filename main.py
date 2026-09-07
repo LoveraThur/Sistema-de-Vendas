@@ -51,21 +51,33 @@ def mostrar_menu():
 
 def executar_opcao(opcao, service, cliente, venda):
     if opcao == 1:
-        while True:
             try:
+                codigo = int(input('Digite o codigo do cliente: '))
                 nome = str(input('Nome do Cliente: '))
-                cliente.cadastrar_cliente(nome)
+                cliente.cadastrar_cliente(codigo, nome)
+                print("Cliente cadastrado!")
             except:
                 print('Nome inválido!')
             
     elif opcao == 2:
-        pass
+        clientes = cliente.listar_clientes()
+        imprimir_registros(clientes, "Nem um cliente registrado!")
 
     elif opcao == 3:
-        pass
+        codigo_buscar_cliente = int(input("Digite o codigo do cliente: "))
+        resultado = cliente.buscar_cliente(codigo_buscar_cliente)
+        if resultado is None:
+            print("Cliente nao encontrado!")
+        else:
+            print(resultado)
 
     elif opcao == 4:
-        pass
+        codigo_remover_cliente = int(input("Digite o codigo do cliente: "))
+        resultado = cliente.remover_cliente(codigo_remover_cliente)
+        if resultado is None:
+            print("Cliente nao encontrado!")
+        else:
+            print("Cliente removido com sucesso!")
 
     elif opcao == 5:
         pass

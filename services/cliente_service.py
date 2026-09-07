@@ -40,6 +40,6 @@ class ClienteService:
     def remover_cliente(self, codigo):
         resultado = self.clientes.remover(codigo) 
         if resultado:
-            self.salvar_clientes
+            self.salvar_clientes()
         return resultado
         
