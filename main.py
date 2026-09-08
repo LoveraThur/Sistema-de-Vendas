@@ -67,7 +67,7 @@ def executar_opcao(opcao, service, cliente, venda):
     elif opcao == 4:
         pass
     elif opcao == 5:
-        
+
         nome_produto = input("Digite o nome do produto: ")
         preco = float(input("Digite o preco do produto: "))
         quantidade = int(input("Digite a quantidade do produto: "))
@@ -80,11 +80,17 @@ def executar_opcao(opcao, service, cliente, venda):
         pass
 
     elif opcao == 7:
-        pass
+
+        codigo = int(input("Digite o código do produto a ser buscado: "))
+        produto = service.buscar_produto(codigo)
+        if produto is None:
+            print("Produto não encontrado.")
+        else:
+            print(f"Produto encontrado: {produto}")
 
     elif opcao == 8:
-        pass
-
+        return service.atualizar_estoque(int(input("Digite a quantidade a ser atualizada: ")))
+        #corrigir erro aqui, pois não está pegando o produto correto para atualizar o estoque.
     elif opcao == 9:
         pass
 

@@ -1,6 +1,8 @@
 import os
 
 from estruturas.lde import LDE
+from estruturas.lse import LSE
+from estruturas.fila import Fila
 from services.persistencia_service import PersistenciaService
 from models.produto import Produto
 
@@ -9,8 +11,10 @@ class EstoqueService:
         pasta_raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         pasta_data = os.path.join(pasta_raiz, "data")
 
+        self.clientes = LSE()
         self.produtos = LDE()
-        
+        self.vendas = Fila()
+
         self.persistencia = PersistenciaService(pasta_data)
 
         self.carregar_dados()
@@ -65,7 +69,7 @@ class EstoqueService:
         pass
 
     def buscar_produto(self, codigo):
-        pass
+        return self.produtos.buscar(codigo)
 
     def buscar_produto_binario(self, codigo):
         pass

@@ -1,6 +1,8 @@
 import os
 
 from estruturas.fila import Fila
+from estruturas.lde import LDE
+from estruturas.lse import LSE
 from services.persistencia_service import PersistenciaService
 
 class VendaService:
@@ -8,6 +10,8 @@ class VendaService:
         pasta_raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         pasta_data = os.path.join(pasta_raiz, "data")
     
+        self.clientes = LSE()
+        self.produtos = LDE()
         self.vendas = Fila()
         self.persistencia = PersistenciaService(pasta_data)
     
