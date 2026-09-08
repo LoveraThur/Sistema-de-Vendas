@@ -116,10 +116,23 @@ def executar_opcao(opcao, service, cliente, venda):
         )
 
     elif opcao == 11:
-        pass
+        produtos = service.listar_produtos_ordenados_por_id()
+
+        print("\nProdutos ordenados por ID:")
+        imprimir_registros(
+            produtos,
+            "Nenhum produto cadastrado."
+        )
 
     elif opcao == 12:
-        pass
+        codigo = int(input("Codigo do produto para busca binaria: "))
+        produto = service.buscar_produto_binario(codigo)
+
+        if produto is None:
+            print(f"Produto com ID {codigo} nao encontrado.")
+        else:
+            print("\nProduto encontrado por Busca Binaria:")
+            print(produto)
 
     elif opcao == 13:
         pass
