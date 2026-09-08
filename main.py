@@ -80,10 +80,40 @@ def executar_opcao(opcao, service, cliente, venda):
         pass
 
     elif opcao == 9:
-        pass
+        codigo = ler_inteiro("Codigo do produto que deseja remover: ")
+        produto = service.buscar_produto(codigo)
+
+        if produto is None:
+            print(f"Produto com ID {codigo} nao encontrado.")
+            return
+
+        print("\nProduto selecionado:")
+        print(produto)
+
+        confirmacao = input(
+            "Tem certeza que deseja remover este produto? (s/n): "
+        ).strip().lower()
+
+        if confirmacao not in ("s", "sim"):
+            print("Remocao cancelada.")
+            return
+
+        removido = service.remover_produto(codigo)
+
+        if removido is None:
+            print("Nao foi possivel remover o produto.")
+        else:
+            print("\nProduto removido com sucesso!")
+            print(removido)
 
     elif opcao == 10:
-        pass
+        produtos = service.listar_produtos_inverso()
+
+        print("\nProdutos em ordem inversa:")
+        imprimir_registros(
+         produtos,
+            "Nenhum produto cadastrado."
+        )
 
     elif opcao == 11:
         pass

@@ -1,6 +1,7 @@
 import os
 
 from estruturas.lde import LDE
+from models import produto
 from services.persistencia_service import PersistenciaService
 
 class EstoqueService:
@@ -70,7 +71,18 @@ class EstoqueService:
         self.quantidade = nova_quantidade
 
     def remover_produto(self, codigo):
-        pass
+        produto = self.buscar_produto(codigo)
+
+        if produto is None:
+            return None
+
+        removido = self.produtos.remover(produto.codigo)
+
+        if removido is not None:
+            self.salvar_produtos()
+
+        return removido
+        
 
     
     def salvar_clientes(self):
