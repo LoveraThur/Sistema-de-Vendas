@@ -2,6 +2,7 @@ import os
 
 from estruturas.lde import LDE
 from services.persistencia_service import PersistenciaService
+from models.produto import Produto
 
 class EstoqueService:
     def __init__(self):
@@ -46,7 +47,13 @@ class EstoqueService:
 
     
     def cadastrar_produto(self, nome, preco, quantidade):
-        pass
+        codigo = self.gerar_proximo_codigo_produto()
+        produto = Produto(codigo, nome, preco, quantidade)
+
+        self.produtos.inserir_fim(produto)
+        self.salvar_produtos()
+
+        return produto
 
     def listar_produtos(self):
         return self.produtos.listar()

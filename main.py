@@ -66,11 +66,17 @@ def executar_opcao(opcao, service, cliente, venda):
 
     elif opcao == 4:
         pass
-
     elif opcao == 5:
-        pass
+        
+        nome_produto = input("Digite o nome do produto: ")
+        preco = float(input("Digite o preco do produto: "))
+        quantidade = int(input("Digite a quantidade do produto: "))
+        produto = service.cadastrar_produto(nome_produto, preco, quantidade)
+        print(f"Produto cadastrado com sucesso: {produto}")
 
     elif opcao == 6:
+        produtos = service.listar_produtos()
+        imprimir_registros(produtos, "Nenhum produto cadastrado.")
         pass
 
     elif opcao == 7:
