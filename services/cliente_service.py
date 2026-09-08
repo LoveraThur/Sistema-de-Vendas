@@ -13,7 +13,6 @@ class ClienteService:
         pasta_data = os.path.join(pasta_raiz, "data")
     
         self.clientes = LSE()
-        self.cliente = Cliente
         self.persistencia = PersistenciaService(pasta_data)
     
         self.carregar_dados()
@@ -27,6 +26,8 @@ class ClienteService:
             self.persistencia.salvar_clientes(self.clientes.listar())
             
     def cadastrar_cliente(self, codigo, nome):
+        if self.clientes.buscar(codigo) is not None:
+            raise ValueError("Codigo do cliente ja cadastrado!")
         cliente = Cliente(codigo, nome)
         self.clientes.inserir_fim(cliente)
         self.salvar_clientes()

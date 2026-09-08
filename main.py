@@ -51,33 +51,48 @@ def mostrar_menu():
 
 def executar_opcao(opcao, service, cliente, venda):
     if opcao == 1:
+        try:
+            codigo = ler_inteiro('Digite o codigo do cliente: ')
+            nome = input('Nome do Cliente: ').strip()
+            if nome == "":
+                print("Espaco em branco, nome invalido!")
+                return
             try:
-                codigo = int(input('Digite o codigo do cliente: '))
-                nome = str(input('Nome do Cliente: '))
-                cliente.cadastrar_cliente(codigo, nome)
-                print("Cliente cadastrado!")
+                float(nome)
+                print("Nome invalido!")
+                return
             except:
-                print('Nome inválido!')
+                pass
+            cliente.cadastrar_cliente(codigo, nome)
+            print("Cliente cadastrado!")
+        except:
+            print("Invalido")
             
     elif opcao == 2:
         clientes = cliente.listar_clientes()
         imprimir_registros(clientes, "Nem um cliente registrado!")
 
     elif opcao == 3:
-        codigo_buscar_cliente = int(input("Digite o codigo do cliente: "))
-        resultado = cliente.buscar_cliente(codigo_buscar_cliente)
-        if resultado is None:
-            print("Cliente nao encontrado!")
-        else:
-            print(resultado)
+        try:
+            codigo_buscar_cliente = ler_inteiro("Digite o codigo do cliente: ")
+            resultado = cliente.buscar_cliente(codigo_buscar_cliente)
+            if resultado is None:
+                print("Cliente nao encontrado!")
+            else:
+                print(resultado)
+        except:
+            print("Codigo Invalido!")
 
     elif opcao == 4:
-        codigo_remover_cliente = int(input("Digite o codigo do cliente: "))
-        resultado = cliente.remover_cliente(codigo_remover_cliente)
-        if resultado is None:
-            print("Cliente nao encontrado!")
-        else:
-            print("Cliente removido com sucesso!")
+        try:
+            codigo_remover_cliente = ler_inteiro("Digite o codigo do cliente: ")
+            resultado = cliente.remover_cliente(codigo_remover_cliente)
+            if resultado is None:
+                print("Cliente nao encontrado!")
+            else:
+                print("Cliente removido com sucesso!")
+        except:
+            print("Codigo Invalido!")
 
     elif opcao == 5:
         pass
