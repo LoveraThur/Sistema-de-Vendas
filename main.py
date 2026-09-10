@@ -84,9 +84,6 @@ def executar_opcao(opcao, service, cliente, venda):
             print("Codigo Invalido!")
 
     elif opcao == 4:
-<<<<<<< HEAD
-        pass
-=======
         try:
             codigo_remover_cliente = ler_inteiro("Digite o codigo do cliente: ")
             resultado = cliente.remover_cliente(codigo_remover_cliente)
@@ -97,7 +94,7 @@ def executar_opcao(opcao, service, cliente, venda):
         except:
             print("Codigo Invalido!")
 
->>>>>>> origin/Antonio-Fix
+
     elif opcao == 5:
 
         nome_produto = input("Digite o nome do produto: ")
@@ -123,6 +120,7 @@ def executar_opcao(opcao, service, cliente, venda):
     elif opcao == 8:
         return service.atualizar_estoque(int(input("Digite a quantidade a ser atualizada: ")))
         #corrigir erro aqui, pois não está pegando o produto correto para atualizar o estoque.
+        
     elif opcao == 9:
         codigo = ler_inteiro("Codigo do produto que deseja remover: ")
         produto = service.buscar_produto(codigo)

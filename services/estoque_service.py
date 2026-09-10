@@ -1,12 +1,9 @@
 import os
 
 from estruturas.lde import LDE
-<<<<<<< HEAD
 from estruturas.lse import LSE
 from estruturas.fila import Fila
-=======
 from models import produto
->>>>>>> origin/eduardo
 from services.persistencia_service import PersistenciaService
 from models.produto import Produto
 
