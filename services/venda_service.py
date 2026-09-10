@@ -38,8 +38,8 @@ class VendaService:
             raise ValueError(f"Produto com ID {codigo_produto} não encontrado.")    
         if quantidade <= 0:
             raise ValueError("A quantidade deve ser maior que zero.")
-        if produto.estoque < quantidade:
-            raise ValueError(f"Estoque insuficiente para o produto {produto.nome}. Estoque atual: {produto.estoque}")
+        if produto.quantidade < quantidade:
+            raise ValueError(f"Estoque insuficiente para o produto {produto.nome}. Estoque atual: {produto.quantidade}")
 
         vendas = self.vendas.listar()
         codigo_venda = len(vendas) + 1
@@ -75,8 +75,9 @@ class VendaService:
     
     def valor_total_estoque(self):
         total = 0
+        
         for produto in self.produtos.listar():
-            total += produto.preco * produto.estoque
+            total += produto.preco * produto.quantidade
             
         return total 
     

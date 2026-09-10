@@ -108,18 +108,23 @@ def executar_opcao(opcao, service, cliente, venda):
             pass
 
         case 7:
-
-            codigo = int(input("Digite o código do produto a ser buscado: "))
-            produto = service.buscar_produto(codigo)
-            if produto is None:
-                print("Produto não encontrado.")
-            else:
-                print(f"Produto encontrado: {produto}")
-
+            try:
+                codigo = int(input("Digite o código do produto a ser buscado: "))
+                produto = service.buscar_produto(codigo)
+                if produto is None:
+                    print("Produto não encontrado.")
+                else:
+                    print(f"Produto encontrado: {produto}")
+            except ValueError:
+                print("Código inválido. Digite um número inteiro.")
+                return 
         case 8:
-            codigo = int(input("Código do produto para atualizar o estoque: "))
-            quantidade = int(input("Quantidade a ser atualizada: "))
-
+            try:
+                codigo = int(input("Código do produto para atualizar o estoque: "))
+                quantidade = int(input("Quantidade a ser atualizada: "))
+            except ValueError:
+                print("Código ou quantidade inválidos. Digite números inteiros.")
+                return
             resultado = service.atualizar_estoque(codigo, quantidade)
 
             if resultado is None:
@@ -128,8 +133,12 @@ def executar_opcao(opcao, service, cliente, venda):
                 print(f"Estoque atualizado com sucesso! Novo estoque: {resultado}")
 
         case 9:
-            codigo = ler_inteiro("Codigo do produto que deseja remover: ")
-            produto = service.buscar_produto(codigo)
+            try:
+                codigo = int(input("Codigo do produto que deseja remover: "))
+                produto = service.buscar_produto(codigo)
+            except ValueError:
+                print("Código inválido. Digite um número inteiro.")
+                return
 
             if produto is None:
                 print(f"Produto com ID {codigo} nao encontrado.")

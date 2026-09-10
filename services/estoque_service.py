@@ -5,6 +5,8 @@ from estruturas.fila import Fila
 from models import produto
 from services.persistencia_service import PersistenciaService
 from models.produto import Produto
+from algoritmos.busca_binaria import buscar_produto_por_id
+from algoritmos.ordenacao import ordenar_produtos_por_id
 
 class EstoqueService:
     def __init__(self):
@@ -62,13 +64,17 @@ class EstoqueService:
         return self.produtos.listar_inverso()
 
     def listar_produtos_ordenados_por_id(self):
-        pass
+        produtos = self.produtos.listar()
+        return ordenar_produtos_por_id(produtos)
 
     def buscar_produto(self, codigo):
         return self.produtos.buscar(codigo)
 
     def buscar_produto_binario(self, codigo):
-        pass
+        
+        produtos = self.produtos.listar()
+
+        return buscar_produto_por_id(produtos, codigo)
 
     def atualizar_estoque(self, codigo, quantidade): 
         produto = self.buscar_produto(codigo)
