@@ -24,10 +24,6 @@ class EstoqueService:
         self.carregar_dados()
 
     def carregar_dados(self):
-        for cliente in self.persistencia.carregar_clientes():
-            if self.clientes.buscar(cliente.codigo) is None:
-                self.clientes.inserir_fim(cliente)
-
         for produto in self.persistencia.carregar_produtos():
             if self.produtos.buscar(produto.codigo) is None:
                 self.produtos.inserir_fim(produto)
@@ -97,10 +93,6 @@ class EstoqueService:
 
         return removido
         
-
-    
-    def salvar_clientes(self):
-        self.persistencia.salvar_clientes(self.clientes.listar())
 
     def salvar_produtos(self):
         self.persistencia.salvar_produtos(self.produtos.listar())

@@ -1,5 +1,6 @@
 import os
 
+from models.cliente import Cliente
 from estruturas.fila import Fila
 from estruturas.lse import LSE
 from services.persistencia_service import PersistenciaService
@@ -12,8 +13,6 @@ class ClienteService:
         pasta_data = os.path.join(pasta_raiz, "data")
     
         self.clientes = LSE()
-        self.produtos = LSE()
-        self.vendas = Fila()
         self.persistencia = PersistenciaService(pasta_data)
     
         self.carregar_dados()
@@ -22,17 +21,16 @@ class ClienteService:
         for cliente in self.persistencia.carregar_clientes():
             if self.clientes.buscar(cliente.codigo) is None:
                 self.clientes.inserir_fim(cliente)
-    
-        for produto in self.persistencia.carregar_produtos():
-            if self.produtos.buscar(produto.codigo) is None:
-                self.produtos.inserir_fim(produto)
-    
-        for venda in self.persistencia.carregar_vendas():
-            self.vendas.enqueue(venda)
+
+    def salvar_clientes(self):
+            self.persistencia.salvar_clientes(self.clientes.listar())
             
-    def cadastrar_cliente(self, nome):
-        self.clientes.inserir_fim(nome)
-        print('aqui')
+    def cadastrar_cliente(self, codigo, nome):
+        if self.clientes.buscar(codigo) is not None:
+            raise ValueError("Codigo do cliente ja cadastrado!")
+        cliente = Cliente(codigo, nome)
+        self.clientes.inserir_fim(cliente)
+        self.salvar_clientes()
     
     def listar_clientes(self):
         return self.clientes.listar()
@@ -41,5 +39,8 @@ class ClienteService:
         return self.clientes.buscar(codigo)
      
     def remover_cliente(self, codigo):
-        return self.clientes.remover(codigo) 
+        resultado = self.clientes.remover(codigo) 
+        if resultado:
+            self.salvar_clientes()
+        return resultado
         
