@@ -1,8 +1,12 @@
 import os
 
 from estruturas.lde import LDE
+<<<<<<< HEAD
 from estruturas.lse import LSE
 from estruturas.fila import Fila
+=======
+from models import produto
+>>>>>>> origin/eduardo
 from services.persistencia_service import PersistenciaService
 from models.produto import Produto
 
@@ -81,7 +85,18 @@ class EstoqueService:
         self.quantidade = nova_quantidade
 
     def remover_produto(self, codigo):
-        pass
+        produto = self.buscar_produto(codigo)
+
+        if produto is None:
+            return None
+
+        removido = self.produtos.remover(produto.codigo)
+
+        if removido is not None:
+            self.salvar_produtos()
+
+        return removido
+        
 
     
     def salvar_clientes(self):
