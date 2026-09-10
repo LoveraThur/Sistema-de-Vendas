@@ -55,6 +55,9 @@ def executar_opcao(opcao, service, cliente, venda):
     produtos = service.listar_produtos()
     match opcao:
         case 1:
+            limpar()
+            print('Clientes - Cadastrar Clientes')
+            print('----------------------------')
             try:
                 nome = input('Nome do Cliente: ').strip()
                 if nome == "":
@@ -76,6 +79,7 @@ def executar_opcao(opcao, service, cliente, venda):
             imprimir_registros(clientes, "Nem um cliente registrado!")
 
         case 3:
+            limpar()
             try:
                 codigo_buscar_cliente = ler_inteiro("Digite o codigo do cliente: ")
                 resultado = cliente.buscar_cliente(codigo_buscar_cliente)
@@ -91,6 +95,7 @@ def executar_opcao(opcao, service, cliente, venda):
             print('Clientes - Remover Clientes')
             print('----------------------------')
             imprimir_registros(clientes, "Nem um cliente registrado!")
+            print('----------------------------')
             try:
                 codigo_remover_cliente = ler_inteiro("Digite o codigo do cliente: ")
                 resultado = cliente.remover_cliente(codigo_remover_cliente)
@@ -102,6 +107,9 @@ def executar_opcao(opcao, service, cliente, venda):
                 print("Codigo Invalido!")
 
         case 5:
+            limpar()
+            print('Produtos - Cadastrar Produto')
+            print('----------------------------')
             nome_produto = input("Digite o nome do produto: ")
             preco = float(input("Digite o preco do produto: "))
             quantidade = int(input("Digite a quantidade do produto: "))
@@ -109,10 +117,16 @@ def executar_opcao(opcao, service, cliente, venda):
             print(f"Produto cadastrado com sucesso: {produto}")
 
         case 6:
+            limpar()
+            print('Produtos - Listar Produto')
+            print('----------------------------')
             imprimir_registros(produtos, "Nenhum produto cadastrado.")
-            pass
+            print('----------------------------')
 
         case 7:
+            limpar()
+            print('Produtos - Buscar Produto')
+            print('----------------------------')
             try:
                 codigo = int(input("Digite o código do produto a ser buscado: "))
                 produto = service.buscar_produto(codigo)
@@ -123,7 +137,9 @@ def executar_opcao(opcao, service, cliente, venda):
             except ValueError:
                 print("Código inválido. Digite um número inteiro.")
                 return 
+                
         case 8:
+            limpar()
             print('Produtos - Atualizar Estoque')
             print('-----------------------------')
             imprimir_registros(produtos, "Nenhum produto cadastrado.")
@@ -198,6 +214,7 @@ def executar_opcao(opcao, service, cliente, venda):
             )
 
         case 12:
+            limpar()
             codigo = int(input("Codigo do produto para busca binaria: "))
             produto = service.buscar_produto_binario(codigo)
 
@@ -230,7 +247,7 @@ def executar_opcao(opcao, service, cliente, venda):
 
         case 14:
             limpar()
-            print("Fila de vendas")
+            print("Vendas - Fila de vendas")
             print("-----------------------------")
 
             vendas = venda.listar_vendas()
@@ -244,22 +261,34 @@ def executar_opcao(opcao, service, cliente, venda):
             print("-----------------------------")
 
         case 15:
-                primeira = venda.primeira_venda()
+            limpar()
+            print("Vendas - Primeira Venda")
+            print("-----------------------------")
+            primeira = venda.primeira_venda()
 
-                if primeira is None:
-                    print("Nenhuma venda registrada.")
-                else:
-                    print(primeira)
+            if primeira is None:
+                print("Nenhuma venda registrada.")
+            else:
+                print(primeira)
+            print("-----------------------------")
 
         case 16:
+            limpar()
+            print("Vendas - Valor total Estoque")
+            print("-----------------------------")
             total = venda.valor_total_estoque()
 
             print(f"Valor total do estoque: R$ {total:.2f}")
+            print("-----------------------------")
 
         case 17:
+            limpar()
+            print("Vendas - Valor Total Vendas")
+            print("-----------------------------")
             total = venda.valor_total_vendas()
 
             print(f"Valor total das vendas: R$ {total:.2f}")
+            print("-----------------------------")
 
         case 18:
             limpar()
@@ -303,7 +332,7 @@ def executar_opcao(opcao, service, cliente, venda):
             print("-----------------------------")
           
         case 21:
-
+            limpar()
             resultado = venda.desfazer_ultima_operacao()
 
             if resultado is None:
