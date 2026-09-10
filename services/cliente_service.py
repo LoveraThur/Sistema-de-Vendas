@@ -25,9 +25,14 @@ class ClienteService:
     def salvar_clientes(self):
             self.persistencia.salvar_clientes(self.clientes.listar())
             
-    def cadastrar_cliente(self, codigo, nome):
-        if self.clientes.buscar(codigo) is not None:
-            raise ValueError("Codigo do cliente ja cadastrado!")
+    def cadastrar_cliente(self, nome):
+        clientes = self.clientes.listar()
+
+        if clientes:
+            codigo = max(cliente.codigo for cliente in clientes) + 1
+        else:
+            codigo = 1
+
         cliente = Cliente(codigo, nome)
         self.clientes.inserir_fim(cliente)
         self.salvar_clientes()
