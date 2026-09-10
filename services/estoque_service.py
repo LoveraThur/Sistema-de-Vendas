@@ -1,5 +1,4 @@
 import os
-
 from estruturas.lde import LDE
 from estruturas.lse import LSE
 from estruturas.fila import Fila
