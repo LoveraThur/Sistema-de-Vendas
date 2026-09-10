@@ -1,8 +1,4 @@
 codigo,nome,preco,quantidade
-1,teste,10.99,10
 2,teste,10.77,56
-<<<<<<< HEAD
 3,batata,5.8,20
-=======
-3,teclado,100.0,5
->>>>>>> origin/estoque-samuel
+4,Banana,5.99,80

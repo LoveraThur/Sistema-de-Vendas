@@ -67,26 +67,85 @@ class VendaService:
         return self.vendas.listar()
     
     def primeira_venda(self):
-        
+
         if self.vendas.is_empty():
             return None
 
         return self.vendas.front()
     
     def valor_total_estoque(self):
-        pass
+        total = 0
+        for produto in self.produtos.listar():
+            total += produto.preco * produto.estoque
+            
+        return total 
     
     def valor_total_vendas(self):
-        pass
+        total = 0
+
+        for venda in self.vendas.listar():
+            for item in venda.itens:
+                total += item["quantidade"] * item["preco_unitario"]
+        return total
     
     def clientes_e_valores_totais_gastos(self):
-        pass
-    
+        totais = {}
+        for cliente in self.clientes.listar():
+            totais[cliente.codigo] = 0
+
+        for venda in self.vendas.listar():
+            if venda.codigo_cliente not in totais:
+                totais[venda.codigo_cliente] = 0
+            totais[venda.codigo_cliente] += venda.valor_total
+
+        return totais
+
+
     def cliente_que_mais_gastou(self):
-        pass
-    
+        totais = self.clientes_e_valores_totais_gastos()
+        if not self.vendas.listar():
+            return None
+
+        codigo_cliente_mais_gastou = max(totais, key=totais.get)
+
+        return {
+            "codigo_cliente": codigo_cliente_mais_gastou,
+            "total_gasto": totais[codigo_cliente_mais_gastou],
+        }
     def produto_mais_vendido(self):
-        pass
-    
+        quantidades = {}
+        for venda in self.vendas.listar():
+            for item in venda.itens:
+                codigo = item["codigo_produto"]
+                quantidades[codigo] = quantidades.get(codigo, 0) + item["quantidade"]
+
+        if not quantidades:
+            return None
+
+        codigo_produto_mais_vendido = max(quantidades, key=quantidades.get)
+
+        return {
+            "codigo_produto": codigo_produto_mais_vendido,
+            "quantidade_vendida": quantidades[codigo_produto_mais_vendido],
+        }
+
     def desfazer_ultima_operacao(self):
-        pass
+        vendas = self.vendas.listar()
+        if not vendas:
+            return None
+
+        ultima_venda = vendas.pop()
+        for item in ultima_venda.itens:
+            produto = self.produtos.buscar(item["codigo_produto"])
+            if produto is not None:
+                produto.atualizar_estoque(item["quantidade"])
+
+        self.vendas = Fila()
+
+        for venda in vendas:
+            self.vendas.enqueue(venda)
+
+        self.persistencia.salvar_vendas(self.vendas.listar())
+        self.persistencia.salvar_produtos(self.produtos.listar())
+
+        return ultima_venda

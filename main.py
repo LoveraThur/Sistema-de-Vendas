@@ -117,8 +117,16 @@ def executar_opcao(opcao, service, cliente, venda):
                 print(f"Produto encontrado: {produto}")
 
         case 8:
-            return service.atualizar_estoque(int(input("Digite a quantidade a ser atualizada: ")))
-                    
+            codigo = int(input("Código do produto para atualizar o estoque: "))
+            quantidade = int(input("Quantidade a ser atualizada: "))
+
+            resultado = service.atualizar_estoque(codigo, quantidade)
+
+            if resultado is None:
+                print("Produto não encontrado.")
+            else:
+                print(f"Estoque atualizado com sucesso! Novo estoque: {resultado}")
+
         case 9:
             codigo = ler_inteiro("Codigo do produto que deseja remover: ")
             produto = service.buscar_produto(codigo)
@@ -179,7 +187,11 @@ def executar_opcao(opcao, service, cliente, venda):
                 codigo_produto = int(input("Código do produto: "))
                 quantidade = int(input("Quantidade: "))
 
-                venda.realizar_venda_exemplo(codigo_cliente, codigo_produto, quantidade)
+                venda.realizar_venda_exemplo(
+                    codigo_cliente, 
+                    codigo_produto, 
+                    quantidade
+                    )
 
                 print("Venda realizada!")
 
@@ -242,6 +254,9 @@ def main():
     service = EstoqueService()
     cliente = ClienteService()
     venda = VendaService()
+
+    venda.produtos = service.produtos
+    venda.clientes = cliente.clientes
 
     while True:
         limpar()
