@@ -104,31 +104,65 @@ def executar_opcao(opcao, service, cliente, venda):
         pass
 
     elif opcao == 13:
-        pass
+            codigo_cliente = int(input("Código do cliente: "))
+            codigo_produto = int(input("Código do produto: "))
+            quantidade = int(input("Quantidade: "))
+
+            venda.realizar_venda_exemplo(codigo_cliente, codigo_produto, quantidade)
+
+            print("Venda realizada!")
 
     elif opcao == 14:
-        pass
+
+        print(venda.listar_vendas())
 
     elif opcao == 15:
-        pass
+            primeira = venda.primeira_venda()
+
+            if primeira is None:
+                print("Nenhuma venda registrada.")
+            else:
+                print(primeira)
 
     elif opcao == 16:
-        pass
+        total = venda.valor_total_estoque()
+
+        print(f"Valor total do estoque: R$ {total:.2f}")
 
     elif opcao == 17:
-        pass
+        total = venda.valor_total_vendas()
+
+        print(f"Valor total das vendas: R$ {total:.2f}")
 
     elif opcao == 18:
-        pass
+        
+        print(venda.clientes_e_valores_totais_gastos())
 
     elif opcao == 19:
-        pass
+        resultado = venda.cliente_que_mais_gastou()
+
+        if resultado is None:
+            print("Nenhuma venda registrada.")
+        else:
+            print(resultado)
 
     elif opcao == 20:
-        pass
+        resultado = venda.produto_mais_vendido()
+
+        if resultado is None:
+            print("Nenhuma venda registrada.")
+        else:
+            print(resultado)
 
     elif opcao == 21:
-        pass
+
+        resultado = venda.desfazer_ultima_operacao()
+
+        if resultado is None:
+            print("Não há operação para desfazer.")
+        else:
+            print("Última operação desfeita com sucesso.")
+            print(resultado)
 
     else:
         print("Opcao invalida. Tente novamente.")
