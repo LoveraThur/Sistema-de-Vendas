@@ -51,6 +51,8 @@ def mostrar_menu():
 
 
 def executar_opcao(opcao, service, cliente, venda):
+    clientes = cliente.listar_clientes()
+    produtos = service.listar_produtos()
     match opcao:
         case 1:
             try:
@@ -70,7 +72,7 @@ def executar_opcao(opcao, service, cliente, venda):
                 print("Invalido")
                 
         case 2:
-            clientes = cliente.listar_clientes()
+            limpar()
             imprimir_registros(clientes, "Nem um cliente registrado!")
 
         case 3:
@@ -85,6 +87,10 @@ def executar_opcao(opcao, service, cliente, venda):
                 print("Codigo Invalido!")
 
         case 4:
+            limpar()
+            print('Clientes - Remover Clientes')
+            print('----------------------------')
+            imprimir_registros(clientes, "Nem um cliente registrado!")
             try:
                 codigo_remover_cliente = ler_inteiro("Digite o codigo do cliente: ")
                 resultado = cliente.remover_cliente(codigo_remover_cliente)
@@ -103,7 +109,6 @@ def executar_opcao(opcao, service, cliente, venda):
             print(f"Produto cadastrado com sucesso: {produto}")
 
         case 6:
-            produtos = service.listar_produtos()
             imprimir_registros(produtos, "Nenhum produto cadastrado.")
             pass
 
@@ -119,6 +124,10 @@ def executar_opcao(opcao, service, cliente, venda):
                 print("Código inválido. Digite um número inteiro.")
                 return 
         case 8:
+            print('Produtos - Atualizar Estoque')
+            print('-----------------------------')
+            imprimir_registros(produtos, "Nenhum produto cadastrado.")
+            print('-----------------------------')
             try:
                 codigo = int(input("Código do produto para atualizar o estoque: "))
                 quantidade = int(input("Quantidade a ser atualizada: "))
@@ -133,6 +142,11 @@ def executar_opcao(opcao, service, cliente, venda):
                 print(f"Estoque atualizado com sucesso! Novo estoque: {resultado}")
 
         case 9:
+            limpar()
+            print('Produtos - Remover Produto')
+            print('-----------------------------')
+            imprimir_registros(produtos, "Nenhum produto cadastrado.")
+            print('-----------------------------')
             try:
                 codigo = int(input("Codigo do produto que deseja remover: "))
                 produto = service.buscar_produto(codigo)
@@ -164,6 +178,7 @@ def executar_opcao(opcao, service, cliente, venda):
                 print(removido)
 
         case 10:
+            limpar()
             produtos = service.listar_produtos_inverso()
 
             print("\nProdutos em ordem inversa:")
@@ -173,6 +188,7 @@ def executar_opcao(opcao, service, cliente, venda):
             )
 
         case 11:
+            limpar()
             produtos = service.listar_produtos_ordenados_por_id()
 
             print("\nProdutos ordenados por ID:")
@@ -192,21 +208,40 @@ def executar_opcao(opcao, service, cliente, venda):
                 print(produto)
 
         case 13:
-                codigo_cliente = int(input("Código do cliente: "))
-                codigo_produto = int(input("Código do produto: "))
-                quantidade = int(input("Quantidade: "))
+            limpar()
+            print('Vendas - Realizar Venda Exemplo')
+            print('-----------------------------')
+            imprimir_registros(clientes, "Nem um cliente registrado!")
+            print('-----------------------------')
+            codigo_cliente = int(input("Código do cliente: "))
+            print('-----------------------------')
+            imprimir_registros(produtos, "Nenhum produto cadastrado.")
+            print('-----------------------------')
+            codigo_produto = int(input("Código do produto: "))
+            quantidade = int(input("Quantidade: "))
 
-                venda.realizar_venda_exemplo(
-                    codigo_cliente, 
-                    codigo_produto, 
-                    quantidade
-                    )
+            venda.realizar_venda_exemplo(
+                codigo_cliente, 
+                codigo_produto, 
+                quantidade
+                )
 
-                print("Venda realizada!")
+            print("Venda realizada!")
 
         case 14:
+            limpar()
+            print("Fila de vendas")
+            print("-----------------------------")
 
-            print(venda.listar_vendas())
+            vendas = venda.listar_vendas()
+
+            if not vendas:
+                print("Nenhuma venda registrada.")
+            else:
+                for venda_registrada in vendas:
+                    print(venda_registrada)
+
+            print("-----------------------------")
 
         case 15:
                 primeira = venda.primeira_venda()
@@ -227,25 +262,46 @@ def executar_opcao(opcao, service, cliente, venda):
             print(f"Valor total das vendas: R$ {total:.2f}")
 
         case 18:
-            
-            print(venda.clientes_e_valores_totais_gastos())
+            limpar()
+            print('Valores Gastos por Cliente')
+            print('-----------------------------')
+            totais = venda.clientes_e_valores_totais_gastos()
+
+            if not totais:
+                print("Nenhum cliente registrado.")
+            else:
+                for nome, total in totais.items():
+                    print(f"Cliente: {nome} | Total gasto: R$ {total:.2f}")
+            print('-----------------------------')
 
         case 19:
+            limpar()
+            print("Cliente que mais gastou")
+            print("-----------------------------")
+
             resultado = venda.cliente_que_mais_gastou()
 
             if resultado is None:
                 print("Nenhuma venda registrada.")
             else:
-                print(resultado)
+                print(f"Cliente: {resultado[0]}")
+                print(f"Total gasto: R$ {resultado[1]:.2f}")
+
+            print("-----------------------------")
 
         case 20:
+            limpar()
+            print("Produto mais vendido")
+            print("-----------------------------")
             resultado = venda.produto_mais_vendido()
 
             if resultado is None:
                 print("Nenhuma venda registrada.")
             else:
-                print(resultado)
-
+                print(f'produto: {resultado[0]}')
+                print(f'quantidade vendida: {resultado[1]}')
+            print("-----------------------------")
+          
         case 21:
 
             resultado = venda.desfazer_ultima_operacao()
@@ -266,6 +322,7 @@ def main():
 
     venda.produtos = service.produtos
     venda.clientes = cliente.clientes
+
 
     while True:
         limpar()
