@@ -20,8 +20,13 @@ class Produto:
     def get_identificador_unico(self):
         return self.codigo
 
-    def atualizar_estoque(self, nova_quantidade):
-        pass
+    def atualizar_estoque(self, quantidade):
+        nova_quantidade = self.quantidade + quantidade
+
+        if nova_quantidade < 0:
+            raise ValueError("O estoque nao pode ficar negativo.")
+
+        self.quantidade = nova_quantidade
 
     def to_csv_row(self):
         return [self.codigo, self.nome, self.preco, self.quantidade]
