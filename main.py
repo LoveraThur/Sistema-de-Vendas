@@ -71,11 +71,11 @@ def executar_opcao(opcao, service, cliente, venda):
                 
         case 2:
             clientes = cliente.listar_clientes()
-            imprimir_registros(clientes, "Nenhum cliente registrado!")
+            imprimir_registros(clientes, "Nem um cliente registrado!")
 
         case 3:
             try:
-                codigo_buscar_cliente = ler_inteiro("\nDigite o codigo do cliente: ")
+                codigo_buscar_cliente = ler_inteiro("Digite o codigo do cliente: ")
                 resultado = cliente.buscar_cliente(codigo_buscar_cliente)
                 if resultado is None:
                     print("Cliente nao encontrado!")
@@ -85,11 +85,6 @@ def executar_opcao(opcao, service, cliente, venda):
                 print("Codigo Invalido!")
 
         case 4:
-            limpar()
-            print('Clientes - Limpar Clientes')
-            print('----------------------------')
-            clientes = cliente.listar_clientes()
-            imprimir_registros(clientes, "Nenhum cliente registrado!")
             try:
                 codigo_remover_cliente = ler_inteiro("Digite o codigo do cliente: ")
                 resultado = cliente.remover_cliente(codigo_remover_cliente)
@@ -122,28 +117,8 @@ def executar_opcao(opcao, service, cliente, venda):
                 print(f"Produto encontrado: {produto}")
 
         case 8:
-            limpar()
-            print('Produtos - Atualizar Estoque')
-            print('-----------------------------')
-            produtos = service.listar_produtos()
-            imprimir_registros(produtos,"Nenhum produto cadastrado.")
-            print('-----------------------------')
-            codigo = ler_inteiro("\nDigite o codigo do produto: ")
-            quantidade = ler_inteiro("Digite a quantidade a ser atualizada: ")
-
-            produto = service.buscar_produto(codigo)
-
-            if produto is None:
-                print("Produto nao encontrado.")
-                return
-
-            produto = service.atualizar_estoque(codigo, quantidade)
-
-            if produto is None:
-                print("Produto nao encontrado.")
-            else:
-                print("Estoque atualizado com sucesso.")
-            
+            return service.atualizar_estoque(int(input("Digite a quantidade a ser atualizada: ")))
+                    
         case 9:
             codigo = ler_inteiro("Codigo do produto que deseja remover: ")
             produto = service.buscar_produto(codigo)
