@@ -1,4 +1,13 @@
-# Projeto Exemplo - Sistema de Estoque e Vendas
+# Realizado por:
+- Antonio Carlos P. Vancini - 1139402
+- Antony Marcolan Zanella - 1139532
+- Arthur Albara Lovera - 1139243
+- Arthur Silvani - 11339247
+- Eduardo Buzin Sebben - 1139353
+- Igor Gonzatto - 1139324
+- Samuel Andrius Zortea - 1137287
+
+Sistema de Estoque e Vendas
 
 Este projeto e uma base de estudo para o trabalho avaliativo de Estrutura de Dados.
 Ele nao e uma solucao pronta. A ideia e mostrar uma organizacao inicial do codigo,

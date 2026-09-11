@@ -91,45 +91,65 @@ class VendaService:
     
     def clientes_e_valores_totais_gastos(self):
         totais = {}
+
         for cliente in self.clientes.listar():
-            totais[cliente.codigo] = 0
+            totais[cliente.nome] = 0
 
         for venda in self.vendas.listar():
-            if venda.codigo_cliente not in totais:
-                totais[venda.codigo_cliente] = 0
-            totais[venda.codigo_cliente] += venda.valor_total
+            cliente = self.clientes.buscar(venda.codigo_cliente)
+
+            if cliente is not None:
+                totais[cliente.nome] += venda.valor_total
 
         return totais
 
 
     def cliente_que_mais_gastou(self):
-        totais = self.clientes_e_valores_totais_gastos()
         if not self.vendas.listar():
             return None
 
-        codigo_cliente_mais_gastou = max(totais, key=totais.get)
+        totais = self.clientes_e_valores_totais_gastos()
 
-        return {
-            "codigo_cliente": codigo_cliente_mais_gastou,
-            "total_gasto": totais[codigo_cliente_mais_gastou],
-        }
+        maior_nome = None
+        maior_total = 0
+
+        for nome, total in totais.items():
+            if maior_nome is None or total > maior_total:
+                maior_nome = nome
+                maior_total = total
+
+        return maior_nome, maior_total
+
     def produto_mais_vendido(self):
         quantidades = {}
+
         for venda in self.vendas.listar():
             for item in venda.itens:
                 codigo = item["codigo_produto"]
-                quantidades[codigo] = quantidades.get(codigo, 0) + item["quantidade"]
+
+                if codigo not in quantidades:
+                    quantidades[codigo] = 0
+
+                quantidades[codigo] += item["quantidade"]
 
         if not quantidades:
             return None
 
-        codigo_produto_mais_vendido = max(quantidades, key=quantidades.get)
+        codigo_mais_vendido = None
+        maior_quantidade = 0
 
-        return {
-            "codigo_produto": codigo_produto_mais_vendido,
-            "quantidade_vendida": quantidades[codigo_produto_mais_vendido],
-        }
+        for codigo, quantidade in quantidades.items():
+            if quantidade > maior_quantidade:
+                codigo_mais_vendido = codigo
+                maior_quantidade = quantidade
 
+        produto = self.produtos.buscar(codigo_mais_vendido)
+
+        if produto is None:
+            return None
+        return produto.nome, maior_quantidade
+
+    
     def desfazer_ultima_operacao(self):
         vendas = self.vendas.listar()
         if not vendas:
