@@ -111,7 +111,7 @@ def executar_opcao(opcao, service, cliente, venda):
             print('Produtos - Cadastrar Produto')
             print('----------------------------')
             nome_produto = input("Digite o nome do produto: ")
-            preco = float(input("Digite o preco do produto: "))
+            preco = ler_float("Digite o preco do produto: ")
             quantidade = int(input("Digite a quantidade do produto: "))
             produto = service.cadastrar_produto(nome_produto, preco, quantidade)
             print(f"Produto cadastrado com sucesso: {produto}")
